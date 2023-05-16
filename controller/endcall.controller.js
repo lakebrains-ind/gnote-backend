@@ -4,6 +4,11 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
 // Imports the Google Cloud client library
 exports.endcall = async (req, res) => {
+    let actionItem;
+    let Conclusion;
+    let Roadblocks;
+    let Summary;
+    let subject;
     let audience =
     "https://asia-south1-transcript-extension-lb.cloudfunctions.net/notes_capture";
     let jwtClient = new google.auth.JWT(
@@ -13,8 +18,8 @@ exports.endcall = async (req, res) => {
         audience
     );
     try{
-       const data = req.body;
-        console.log("data => ",data);
+       const data1 = req.body;
+        console.log("data => ",data1);
         jwtClient.authorize(function (err, _token) {
             console.log("jwtClient",_token);
             if (err) {
@@ -29,33 +34,45 @@ exports.endcall = async (req, res) => {
                             "Authorization": `bearer ${_token.id_token}`,
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(data),
+                        body: JSON.stringify(data1),
                     }
                 )
                     .then((res) => { return res.json() })
                     .then((data) => {
                         console.log("data",data);
+                        actionItem = data["'Action Items'"];
+                        Conclusion = data.Conclusion;
+                        Roadblocks = data.Roadblocks;
+                        Summary = data.Summary;
+                        subject = data.subject;
+
+                        var replacements = {
+                            Action_Item : actionItem,
+                            Conclusion:Conclusion?Conclusion:[],
+                            Roadblocks:Roadblocks?Roadblocks:[],
+                            Summary:Summary?Summary:[],
+                            Subject:subject?subject:[],
+                          // userName: data.name,
+                          // text_link: data.text_link,
+                          meetingDate: data.startTime?data.startTime:[],
+                        };
+                      console.log("replacements",replacements);
+                        // Send Mail
+                        mailer.send({
+                          to: data1.userEmail,
+                          subject: data1.subject == data1.meetname ? subject : data1.subject,
+                          template: "confirmation_mail",
+                          context: replacements,
+                        });
+                      
+                        // Send Response
+                        res.send(`Mail is sended to email`);
                     });
+
             }
         });
         // Data to send in Mail
-        var replacements = {
-          // userName: data.name,
-          // text_link: data.text_link,
-          notes_text: data.notes,
-          // meetingDate: data.meetingDate,
-        };
-      
-        // Send Mail
-        mailer.send({
-          to: data.email,
-          subject: data.subject,
-          template: "confirmation_mail",
-          context: replacements,
-        });
-      
-        // Send Response
-        res.send(`Mail is sended to email`);
+       
     }
     catch (error) {
         // Send Response
