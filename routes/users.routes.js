@@ -12,7 +12,7 @@ usersRouter.post('/sign-up', users.userCreate);
 
 usersRouter.post('/end-call', endcalls.endcall );
 
-usersRouter.post('/mail', users.userMail);
+// usersRouter.post('/mail', users.userMail);
 
 
 

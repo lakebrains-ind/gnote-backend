@@ -50,27 +50,3 @@ exports.userCreate = async (req, res, next) => {
 };
 
 // Send mail Function
-exports.userMail = async (req, res, next) => {
-
-  // Get data from body
-  const data = req.body;
-
-  // Data to send in Mail
-  var replacements = {
-    // userName: data.name,
-    // text_link: data.text_link,
-    notes_text: data.notes,
-    // meetingDate: data.meetingDate,
-  };
-
-  // Send Mail
-  mailer.send({
-    to: data.email,
-    subject: data.subject,
-    template: "confirmation_mail",
-    context: replacements,
-  });
-
-  // Send Response
-  res.send(`Mail is sended to email`);
-};
