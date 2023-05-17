@@ -67,25 +67,22 @@ exports.endcall = async (req, res) => {
                       
                     //     // Send Response
                     //     res.send(`Mail is sended to email`);
-                      let mainHead = `<h1 style="color: rgb(105, 105, 105);">
-                    Notes
-                    </h1>`;
-                      let Summary1 =Summary
-                        ? Summary.map((el) => {
+                   
+                      let Summary1 =Summary.length ? Summary.map((el) => {
                             return '<li style="font-size: 16px;">' + el + "</li>";
                           })
                         : null;
-                      let actionItem1 = actionItem
+                      let actionItem1 = actionItem.length
                         ? actionItem.map((el) => {
                             return '<li style="font-size: 16px;">' + el + "</li>";
                           })
                         : null;
-                      let Roadblocks1 = Roadblocks
+                      let Roadblocks1 = Roadblocks.length
                         ? Roadblocks.map((el) => {
                             return '<li style="font-size: 16px;">' + el + "</li>";
                           })
                         : null;
-                      let Conclusion1 = Conclusion
+                      let Conclusion1 = Conclusion.length
                         ? Conclusion.map((el) => {
                             return '<li style="font-size: 16px;">' + el + "</li>";
                           })
@@ -94,48 +91,47 @@ exports.endcall = async (req, res) => {
                       let summarySection = "";
                       if (Summary1) {
                         summarySection =
-                          summarySection + `<h2 style="color: gray;">Summary</h2><ul>`;
+                          summarySection + `<h2 style="color: black;">Summary</h2><li>`;
                         for (let i = 0; i < Summary.length; i++) {
                           const li = Summary[i];
                           summarySection = summarySection + li;
                         }
-                        summarySection = summarySection + "</ul>";
+                        summarySection = summarySection + "</li>";
                       }
                       let actionItemsSection = "";
                       if (actionItem1) {
                         actionItemsSection =
                           actionItemsSection +
-                          `<h2 style="color: gray;">Action Items</h2><ul>`;
+                          `<h2 style="color: black;">Action Items</h2><li>`;
                         for (let i = 0; i < actionItem.length; i++) {
                           const li = actionItem[i];
                           actionItemsSection = actionItemsSection + li;
                         }
-                        actionItemsSection = actionItemsSection + "</ul>";
+                        actionItemsSection = actionItemsSection + "</li>";
                       }
                       let roadblocksSection = "";
                       if (Roadblocks1) {
                         roadblocksSection =
                           roadblocksSection +
-                          `<h2 style="color: gray;">Roadblocks</h2><ul>`;
+                          `<h2 style="color: black;">Roadblocks</h2><li>`;
                         for (let i = 0; i < Roadblocks.length; i++) {
                           const li = Roadblocks[i];
                           roadblocksSection = roadblocksSection + li;
                         }
-                        roadblocksSection = roadblocksSection + "</ul>";
+                        roadblocksSection = roadblocksSection + "</li>";
                       }
                       let conclusionSection = "";
                       if (Conclusion1) {
                         conclusionSection =
                           conclusionSection +
-                          `<h2 style="color: gray;">Conclusion</h2><ul>`;
+                          `<h2 style="color: black;">Conclusion</h2><li>`;
                         for (let i = 0; i < Conclusion.length; i++) {
                           const li = Conclusion[i];
                           conclusionSection = conclusionSection + li;
                         }
-                        conclusionSection = conclusionSection + "</ul>";
+                        conclusionSection = conclusionSection + "</li>";
                       }
                       var html = `<div>
-                        ${mainHead ? mainHead : ""}
                         ${summarySection ? summarySection : ""}
                         ${actionItemsSection ? actionItemsSection : ""}
                         ${roadblocksSection ? roadblocksSection : ""}
