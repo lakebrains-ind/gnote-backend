@@ -40,8 +40,7 @@ exports.endcall = async (req, res) => {
                     .then((res) => { return res.json() })
                     .then((data) => {
                         console.log("data",data);
-                        actionItem = data["'Action Items'"];
-                        console.log(actionItem);
+                        actionItem = data['Action Items'];
                         Conclusion = data.Conclusion;
                         Roadblocks = data.Roadblocks;
                         Summary = data.Summary;
@@ -142,8 +141,8 @@ exports.endcall = async (req, res) => {
                         ${roadblocksSection ? roadblocksSection : ""}
                         ${conclusionSection ? conclusionSection : ""}
                         </div>`;
-                        let today = dataa.startTime;
-                        var meetingDate = today.toLocaleString("en-US", {
+                        const timestamp = new Date(dataa.startTime);
+                        var meetingDate = timestamp.toLocaleString("en-US", {
                             weekday: "short",
                             year: "numeric",
                             month: "short",
@@ -155,7 +154,7 @@ exports.endcall = async (req, res) => {
                         });
                       // Data to send in Mail
                       var replacements = {
-                        userName: dataa.name,
+                        userName: dataa.userName,
                         notes_text: html,
                         meetingDate: meetingDate,
                       };
