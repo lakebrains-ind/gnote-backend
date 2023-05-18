@@ -21,29 +21,7 @@ app.get("/", (req, res) => {
 
 app.use("/", authRoutes);
 
-app.get("/openai", (req, res) => {
-  let question = req.query.question;
-  try {
-    const configuration = new Configuration({
-      apiKey: process.env.API_KEY,
-    });
-    const openai = new OpenAIApi(configuration);
-    const completion = openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: question,
-      max_tokens: 1000,
-    });
 
-    completion.then((r) => {
-      res.status(200).json({
-        question: question,
-        answer: r.data.choices[0].text,
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 app.listen(PORT, () => {
   console.log(`app is listen at port ${PORT}`);
