@@ -7,8 +7,8 @@ var config = {
   port: 465,
   secure: true,
   auth: {
-    user: "support@lakebrains.in",
-    pass: "zzibowbvcfsfbckx",
+    user: "summary.gnote@gmail.com",
+    pass: "asxeziqvjgwquurv",
   },
   tls: {
     rejectUnauthorized: false,
@@ -32,7 +32,7 @@ transporter.use(
 );
 
 var defaultMail = {
-  from: "Lakebrains <contact@lakebrains.com>",
+  from: "Gnote <summary.gnote@gmail.com>",
   text: "Interact",
 };
 

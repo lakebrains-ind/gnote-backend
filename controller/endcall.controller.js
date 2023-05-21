@@ -45,7 +45,6 @@ exports.endcall = async (req, res) => {
                         Roadblocks = data.Roadblocks;
                         Summary = data.Summary;
                         subject = data.subject;
-
                     //     var replacements = {
                     //         Action_Item : actionItem,
                     //         Conclusion:Conclusion?Conclusion:[],
@@ -69,22 +68,26 @@ exports.endcall = async (req, res) => {
                     //     res.send(`Mail is sended to email`);
                    
                       let Summary1 =Summary.length ? Summary.map((el) => {
-                            return '<li style="font-size: 16px;">' + el + "</li>";
+                        console.log(el);
+                            return `<li style="font-size: 16px;"> + ${el} + </li>`;
                           })
                         : null;
                       let actionItem1 = actionItem.length
                         ? actionItem.map((el) => {
-                            return '<li style="font-size: 16px;">' + el + "</li>";
+                          console.log(el);
+                            return `<li style="font-size: 16px;"> + ${el} + </li>`;
                           })
                         : null;
                       let Roadblocks1 = Roadblocks.length
                         ? Roadblocks.map((el) => {
-                            return '<li style="font-size: 16px;">' + el + "</li>";
+                          
+                            return `<li style="font-size: 16px;"> + ${el} + </li>`;
                           })
                         : null;
                       let Conclusion1 = Conclusion.length
                         ? Conclusion.map((el) => {
-                            return '<li style="font-size: 16px;">' + el + "</li>";
+
+                            return `<li style="font-size: 16px;"> + ${el} + </li>`;
                           })
                         : null;
             
@@ -148,6 +151,7 @@ exports.endcall = async (req, res) => {
                             second: "numeric",
                             hour12: false,
                         });
+                        console.log("TIMEEEE",meetingDate);
                       // Data to send in Mail
                       var replacements = {
                         userName: dataa.userName,
@@ -162,7 +166,10 @@ exports.endcall = async (req, res) => {
                               template: "confirmation_mail",
                               context: replacements,
                             });
-                    });
+                    })
+                    .catch((error)=>{
+                      console.error(error);
+                    })
 
             }
         });
